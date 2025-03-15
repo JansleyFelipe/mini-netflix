@@ -1,18 +1,7 @@
 import { ArrowLeft } from "lucide-react";
 import { redirectTo } from "@/utils/routes";
 import Image from "next/image";
-
-interface Movie {
-  Title: string;
-  Poster: string;
-  Plot: string;
-  Year: string;
-  imdbRating: string;
-}
-
-interface MovieDetailsProps {
-  movie: Movie;
-}
+import { MovieDetailsProps } from "./MovieDetails.types";
 
 export default function MovieDetails({ movie }: MovieDetailsProps) {
   return (

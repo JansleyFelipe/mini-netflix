@@ -38,6 +38,7 @@ npm install
 ### 3️⃣ Setup Environment Variables
 Create a .env.local file in the root directory and add your OMDb API key:
 ```bash
+NEXT_PUBLIC_OMDB_URL=https://www.omdbapi.com
 NEXT_PUBLIC_OMDB_API_KEY=your_omdb_api_key_here
 ```
 - Get a free API key from OMDb API.

@@ -1,8 +1,8 @@
+const API_URL = process.env.NEXT_PUBLIC_OMDB_URL;
+const API_KEY = process.env.NEXT_PUBLIC_OMDB_API_KEY;
+
 export const fetchMovieDataById = async (id: string | string[]) => {
-  const API_KEY = process.env.NEXT_PUBLIC_OMDB_API_KEY;
-  const response = await fetch(
-    `https://www.omdbapi.com/?apikey=${API_KEY}&i=${id}`
-  );
+  const response = await fetch(`${API_URL}/?apikey=${API_KEY}&i=${id}`);
   const data = await response.json();
 
   if (data.Response === "False") {
@@ -13,9 +13,8 @@ export const fetchMovieDataById = async (id: string | string[]) => {
 };
 
 export const fetchMovieDataBySearch = async (search: string) => {
-  const API_KEY = process.env.NEXT_PUBLIC_OMDB_API_KEY;
   const response = await fetch(
-    `https://www.omdbapi.com/?apikey=${API_KEY}&s=${search}&type=movie`
+    `${API_URL}/?apikey=${API_KEY}&s=${search}&type=movie`
   );
   const data = await response.json();
   console.log("nao existe: ", data.Search, "\n");
