@@ -1,21 +1,15 @@
 import gulp from "gulp";
-import { deleteSync } from "del"; // Importação correta para TypeScript
-import run from "gulp-run";
-
-// Task: Clean the `.next` folder
-gulp.task("clean", async () => {
-  deleteSync([".next"]); // Use o método `deleteSync` para excluir a pasta
-});
+import { exec } from "child_process";
 
 // Task: Build the Next.js project
-gulp.task("build", () => {
-  return run("npm run build").exec();
+gulp.task("build", (done) => {
+  exec("npm run build", () => done());
 });
 
-// Task: Start the Next.js development server
-gulp.task("dev", () => {
-  return run("npm run dev").exec();
+// Task: Start the development server
+gulp.task("dev", (done) => {
+  exec("npm run dev", () => done());
 });
 
-// Default task: Clean the `.next` folder and then build the project
-gulp.task("default", gulp.series("clean", "build"));
+// Default task: Run the build task
+gulp.task("default", gulp.series("build"));
