@@ -2,14 +2,32 @@ const API_URL = process.env.NEXT_PUBLIC_OMDB_URL;
 const API_KEY = process.env.NEXT_PUBLIC_OMDB_API_KEY;
 
 export const fetchMovieDataById = async (id: string | string[]) => {
-  const response = await fetch(`${API_URL}/?apikey=${API_KEY}&i=${id}`);
-  const data = await response.json();
+  try {
+    const response = await fetch(`${API_URL}/?apikey=${API_KEY}&i=${id}`);
 
-  if (data.Response === "False") {
-    throw new Error(data.Error || "Failed to fetch movie data");
+    if (!response.ok) {
+      throw new Error(`Failed to fetch movie data. Status: ${response.status}`);
+    }
+
+    let data;
+    try {
+      data = await response.json();
+    } catch {
+      throw new Error(
+        `Failed to parse response as JSON. The response might be invalid.`
+      );
+    }
+
+    if (data.Response === "False") {
+      throw new Error(data.Error || "Movie not found.");
+    }
+
+    return data;
+  } catch {
+    throw new Error(
+      `Unable to fetch movie data. Please check the ID and try again.`
+    );
   }
-
-  return data;
 };
 
 export const fetchMovieDataBySearch = async (search: string) => {

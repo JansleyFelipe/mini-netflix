@@ -1,24 +1,16 @@
-import { GetServerSideProps } from "next";
-import { fetchMovieDataById } from "../api/moviesApi";
+import { useRouter } from "next/router";
 import MovieDetails from "@/components/MovieDetails";
-import { MovieDetailsProps } from "@/components/MovieDetails.types";
+import StateHandler from "@/components/StateHandler";
+import { useMovieData } from "@/hooks/useMovieData";
 
-export default function MovieDetailsPage({ movie }: MovieDetailsProps) {
-  return <MovieDetails movie={movie} />;
+export default function MovieDetailsQueryPage() {
+  const router = useRouter();
+  const movieId = router.query.movieId as string;
+  const { movie, loading, error } = useMovieData(movieId);
+
+  return (
+    <StateHandler loading={loading} error={error}>
+      {movie && <MovieDetails movie={movie} />}
+    </StateHandler>
+  );
 }
-
-export const getServerSideProps: GetServerSideProps = async ({ query }) => {
-  const movieId = query.movieId as string;
-
-  if (!movieId) {
-    return { notFound: true };
-  }
-
-  try {
-    const movie = await fetchMovieDataById(movieId);
-    return { props: { movie } };
-  } catch (error) {
-    console.error(error);
-    return { notFound: true };
-  }
-};

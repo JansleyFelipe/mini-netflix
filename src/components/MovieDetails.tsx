@@ -4,6 +4,20 @@ import Image from "next/image";
 import { MovieDetailsProps } from "./MovieDetails.types";
 
 export default function MovieDetails({ movie }: MovieDetailsProps) {
+  if (!movie) {
+    return (
+      <div className="min-h-screen bg-gray-900 text-white flex flex-col items-center justify-center">
+        <h1 className="text-3xl font-bold mb-4">Movie Not Found</h1>
+        <button
+          onClick={() => redirectTo("/")}
+          className="px-4 py-2 bg-blue-500 hover:bg-blue-600 text-white rounded-lg"
+        >
+          Go Back to Home
+        </button>
+      </div>
+    );
+  }
+
   return (
     <div className="min-h-screen bg-gray-900 text-white flex flex-col items-center py-10">
       <button

@@ -47,7 +47,7 @@ NEXT_PUBLIC_OMDB_API_KEY=your_omdb_api_key_here
 ```bash
 npm run dev
 ```
-The app will be available at http://localhost:3000.
+- The app will be available at http://localhost:3000.
 
 ### 5️⃣ Build for Production
 ```bash
@@ -55,11 +55,26 @@ npm run build
 npm run start
 ```
 
+### 5️⃣ Build using Gulp (Optional)
+If you prefer to use Gulp for managing the build process, follow the steps below:
+
+**Start the Development Server with Gulp**
+```bash
+npm run dev:gulp
+```
+- This will start the Next.js development server, allowing you to work on your project with hot-reloading and file watching.
+
+**Build the Project with Gulp**
+```bash
+npm run build:gulp
+```
+- This will clean the .next folder (if it exists) and then build the project using Next.js's internal build process. The result will be optimized and minified production assets.
+
 ### 6️⃣ Run ESLint (Optional)
 ```bash
 npm run lint
 ```
-This ensures code quality and follows best practices.
+- This ensures code quality and follows best practices.
 
 ---
 
@@ -69,7 +84,7 @@ You can access movie details in two ways:
 http://localhost:3000/movie/details/tt3896198
 http://localhost:3000/movie/details?movieId=tt3896198
 ```
-Both will display the movie details page with the fetched data.
+- Both will display the movie details page with the fetched data.
 
 ---
 

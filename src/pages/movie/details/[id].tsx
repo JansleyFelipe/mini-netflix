@@ -1,18 +1,23 @@
 import { GetServerSideProps } from "next";
-import { fetchMovieDataById } from "../../api/moviesApi";
 import MovieDetails from "@/components/MovieDetails";
-import { MovieDetailsProps } from "@/components/MovieDetails.types";
+import StateHandler from "@/components/StateHandler";
+import { useMovieData } from "@/hooks/useMovieData";
 
-export default function MovieDetailsPage({ movie }: MovieDetailsProps) {
-  return <MovieDetails movie={movie} />;
+export default function MovieDetailsPage({
+  initialMovieId,
+}: {
+  initialMovieId: string;
+}) {
+  const { movie, loading, error } = useMovieData(initialMovieId);
+
+  return (
+    <StateHandler loading={loading} error={error}>
+      {movie && <MovieDetails movie={movie} />}
+    </StateHandler>
+  );
 }
 
 export const getServerSideProps: GetServerSideProps = async ({ params }) => {
-  try {
-    const movie = await fetchMovieDataById(params?.id as string);
-    return { props: { movie } };
-  } catch (error) {
-    console.error(error);
-    return { notFound: true };
-  }
+  const initialMovieId = params?.id as string;
+  return { props: { initialMovieId } };
 };
